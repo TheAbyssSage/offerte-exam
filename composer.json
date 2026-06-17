@@ -1,0 +1,8 @@
+{
+    "name": "offerte/generator",
+    "description": "Generate offerte PDF with dompdf",
+    "type": "project",
+    "require": {
+        "dompdf/dompdf": "^3.1"
+    }
+}
