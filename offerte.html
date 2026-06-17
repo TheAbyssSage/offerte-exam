@@ -1,764 +1,501 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
-    <meta charset="UTF-8">
-    <style>
-        @page {
-            margin: 2cm 2.2cm;
+<meta charset="UTF-8">
+<style>
+  @page {
+    margin: 2.5cm 2cm;
+    @bottom-center {
+      content: "Web-Handler  ·  RB-2026-001  ·  Pagina " counter(page);
+      font-size: 8pt;
+      color: #aaa;
+      font-family: 'DejaVu Sans', sans-serif;
+    }
+  }
 
-            @bottom-center {
-                content: "Pagina " counter(page) " van " counter(pages);
-                font-size: 9px;
-                color: #999;
-                font-family: 'DejaVu Sans', sans-serif;
-            }
-        }
+  * { box-sizing: border-box; }
 
-        * {
-            box-sizing: border-box;
-        }
+  body {
+    font-family: 'DejaVu Sans', sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
 
-        body {
-            font-family: 'DejaVu Sans', sans-serif;
-            font-size: 10.5pt;
-            line-height: 1.55;
-            color: #2d2d2d;
-            margin: 0;
-            padding: 0;
-        }
+  /* ═══════ COVER PAGE ═══════ */
+  .cover {
+    text-align: center;
+    padding-top: 120px;
+    page-break-after: always;
+  }
+  .cover .logo {
+    font-size: 28pt;
+    font-weight: 700;
+    color: #b8865e;
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+  }
+  .cover h1 {
+    font-size: 22pt;
+    font-weight: 300;
+    color: #555;
+    margin: 0 0 8px 0;
+  }
+  .cover h2 {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #4a3728;
+    margin: 0 0 40px 0;
+    border: none;
+  }
+  .cover .for {
+    font-size: 11pt;
+    color: #777;
+    margin-bottom: 50px;
+  }
+  .cover .for strong {
+    color: #4a3728;
+    font-size: 13pt;
+  }
+  .cover .date {
+    font-size: 10pt;
+    color: #999;
+    margin-top: 60px;
+  }
 
-        /* ── Header ── */
-        .header {
-            margin-bottom: 28px;
-            border-bottom: 3px solid #b8865e;
-            padding-bottom: 18px;
-        }
+  /* ═══════ SECTION HEADINGS ═══════ */
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #4a3728;
+    border-bottom: 2px solid #b8865e;
+    padding-bottom: 6px;
+    margin: 32px 0 16px 0;
+  }
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #333;
+    margin: 20px 0 8px 0;
+  }
 
-        .header h1 {
-            font-size: 26pt;
-            font-weight: 700;
-            color: #4a3728;
-            margin: 0 0 4px 0;
-            letter-spacing: 1px;
-        }
+  p { margin: 0 0 10px 0; }
+  ul, ol { margin: 6px 0 12px 0; padding-left: 20px; }
+  li { margin-bottom: 4px; }
 
-        .header .subtitle {
-            font-size: 10pt;
-            color: #8b7355;
-            margin: 0;
-        }
+  /* ═══════ TABLES ═══════ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 18px 0;
+    font-size: 9.5pt;
+  }
+  th {
+    background-color: #4a3728;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 9pt;
+  }
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e0d5c7;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background-color: #faf7f3; }
 
-        .header .meta {
-            margin-top: 16px;
-            font-size: 9.5pt;
-            color: #555;
-            line-height: 1.7;
-        }
+  .total-row td {
+    font-weight: 700;
+    border-top: 2px solid #4a3728;
+    background-color: #f5efe8 !important;
+  }
+  .sub-row td {
+    font-weight: 600;
+    border-top: 1.5px solid #b8865e;
+    background-color: #faf7f3;
+  }
 
-        .header .meta strong {
-            color: #4a3728;
-            display: inline-block;
-            width: 90px;
-        }
+  /* ═══════ PHASE CARDS ═══════ */
+  .phase-card {
+    border: 1px solid #e0d5c7;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+  }
+  .phase-card .phase-nr {
+    display: inline-block;
+    background: #b8865e;
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 10pt;
+    font-weight: 700;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .phase-card .phase-title {
+    font-weight: 700;
+    font-size: 11pt;
+    color: #4a3728;
+    vertical-align: middle;
+  }
+  .phase-card .phase-weeks {
+    float: right;
+    font-size: 9pt;
+    color: #b8865e;
+    font-weight: 600;
+  }
 
-        /* ── Section titles ── */
-        h2 {
-            font-size: 14pt;
-            font-weight: 700;
-            color: #4a3728;
-            border-bottom: 1.5px solid #d4b896;
-            padding-bottom: 5px;
-            margin: 28px 0 14px 0;
-        }
+  /* ═══════ BOXES ═══════ */
+  .info-box {
+    background: #faf7f3;
+    border-left: 4px solid #b8865e;
+    padding: 10px 14px;
+    margin: 14px 0;
+    font-size: 9.5pt;
+    border-radius: 0 4px 4px 0;
+  }
+  .warm-box {
+    background: #faf7f3;
+    border-left: 4px solid #b8865e;
+    padding: 10px 14px;
+    margin: 14px 0;
+    font-size: 9.5pt;
+    border-radius: 0 4px 4px 0;
+  }
 
-        h3 {
-            font-size: 11.5pt;
-            font-weight: 700;
-            color: #5c4a3a;
-            margin: 18px 0 8px 0;
-        }
+  /* ═══════ PRICING SUMMARY ═══════ */
+  .price-hero {
+    text-align: center;
+    margin: 20px 0 30px 0;
+  }
+  .price-hero .big-number {
+    font-size: 28pt;
+    font-weight: 700;
+    color: #4a3728;
+  }
+  .price-hero .big-label {
+    font-size: 10pt;
+    color: #777;
+    margin-top: 2px;
+  }
 
-        /* ── Paragraphs & lists ── */
-        p {
-            margin: 0 0 8px 0;
-        }
+  /* ═══════ SIGNATURE ═══════ */
+  .signature {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid #e0d5c7;
+    font-size: 10pt;
+    line-height: 1.8;
+  }
+  .signature .name {
+    font-weight: 700;
+    color: #4a3728;
+    font-size: 11pt;
+  }
 
-        ul,
-        ol {
-            margin: 4px 0 10px 0;
-            padding-left: 22px;
-        }
+  /* ═══════ UTILITY ═══════ */
+  .page-break { page-break-before: always; }
+  .text-right { text-align: right; }
+  .text-center { text-align: center; }
+  .text-sm { font-size: 9pt; color: #888; }
+  .mt-sm { margin-top: 6px; }
+  .mb-lg { margin-bottom: 24px; }
 
-        li {
-            margin-bottom: 3px;
-        }
-
-        /* ── Tables ── */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0 16px 0;
-            font-size: 9.5pt;
-        }
-
-        th {
-            background-color: #4a3728;
-            color: #fff;
-            padding: 7px 9px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        td {
-            padding: 6px 9px;
-            border-bottom: 1px solid #e0d5c7;
-            vertical-align: top;
-        }
-
-        tr:nth-child(even) td {
-            background-color: #faf7f3;
-        }
-
-        .table-total td {
-            font-weight: 700;
-            border-top: 2px solid #4a3728;
-            background-color: #f5efe8;
-        }
-
-        .table-subtotal td {
-            font-weight: 600;
-            border-top: 1.5px solid #b8865e;
-            background-color: #faf7f3;
-        }
-
-        /* ── Tech stack grid ── */
-        .tech-grid {
-            width: 100%;
-            margin: 12px 0 16px 0;
-        }
-
-        .tech-grid td {
-            padding: 5px 8px;
-            border-bottom: 1px solid #e0d5c7;
-            font-size: 9.5pt;
-        }
-
-        .tech-grid .tech-label {
-            font-weight: 700;
-            color: #4a3728;
-            width: 22%;
-            white-space: nowrap;
-        }
-
-        .tech-grid .tech-value {
-            font-weight: 600;
-            width: 28%;
-        }
-
-        .tech-grid .tech-why {
-            color: #555;
-            width: 50%;
-        }
-
-        /* ── Phase table ── */
-        .phase-table td {
-            font-size: 9.5pt;
-        }
-
-        .phase-table .phase-name {
-            font-weight: 700;
-            color: #4a3728;
-            width: 16%;
-        }
-
-        .phase-table .phase-week {
-            width: 12%;
-        }
-
-        .phase-table .phase-activity {
-            width: 40%;
-        }
-
-        .phase-table .phase-deliverable {
-            width: 32%;
-            color: #555;
-        }
-
-        /* ── Options table ── */
-        .options-table .opt-name {
-            font-weight: 700;
-            color: #4a3728;
-            width: 28%;
-        }
-
-        .options-table .opt-desc {
-            width: 52%;
-            color: #555;
-        }
-
-        .options-table .opt-price {
-            width: 20%;
-            font-weight: 600;
-        }
-
-        /* ── Footer note ── */
-        .footer-note {
-            margin-top: 30px;
-            padding-top: 14px;
-            border-top: 1px solid #d4b896;
-            font-size: 9pt;
-            color: #888;
-        }
-
-        .signature {
-            margin-top: 24px;
-            font-size: 10pt;
-            line-height: 1.8;
-        }
-
-        .signature strong {
-            color: #4a3728;
-        }
-
-        /* ── Highlight box ── */
-        .highlight-box {
-            background: #faf7f3;
-            border-left: 4px solid #b8865e;
-            padding: 10px 14px;
-            margin: 12px 0 16px 0;
-            font-size: 9.5pt;
-        }
-
-        /* ── Separator ── */
-        .sep {
-            border: none;
-            border-top: 1px dotted #d4b896;
-            margin: 8px 0;
-        }
-
-        .page-break {
-            page-break-before: always;
-        }
-
-        .accent {
-            color: #b8865e;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .bold {
-            font-weight: 700;
-        }
-    </style>
+  /* ═══════ TWO-COLUMN ═══════ */
+  .two-col {
+    width: 100%;
+    margin: 14px 0;
+  }
+  .two-col td {
+    width: 50%;
+    vertical-align: top;
+    padding: 0 12px 0 0;
+    border: none;
+    background: none !important;
+  }
+</style>
 </head>
-
 <body>
 
-    <!-- ═══════════ HEADER ═══════════ -->
-    <div class="header">
-        <h1>PROJECTOFFERTE</h1>
-        <p class="subtitle">Op-maat webplatform voor RitmeBox</p>
-        <div class="meta">
-            <strong>To:</strong> Sofie De Ridder — RitmeBox<br>
-            <strong>From:</strong> Web-Handler<br>
-            <strong>Date:</strong> June 2026<br>
-            <strong>Ref:</strong> RB-2026-001<br>
-            <strong>Subject:</strong> Offerte voor ontwikkeling website + inschrijvingsplatform + admin dashboard
-        </div>
-    </div>
+<!-- ═══════════════════════ COVER ═══════════════════════ -->
+<div class="cover">
+  <div class="logo">WEB-HANDLER</div>
+  <h1>Projectofferte</h1>
+  <h2>Website &amp; Inschrijvingsplatform voor RitmeBox</h2>
+  <div class="for">
+    Op maat van <strong>Sofie De Ridder</strong><br>
+    RitmeBox — Dansschool &amp; Groepslessen
+  </div>
+  <div class="date">Juni 2026  ·  Referentie RB-2026-001</div>
+</div>
 
-    <!-- ═══════════ 1. SAMENVATTING ═══════════ -->
-    <h2>1. Samenvatting van de opdracht</h2>
+<!-- ═══════════════════════ PAGE 2: INTRO ═══════════════════════ -->
+<h2>1. Wat we voor jou gaan bouwen</h2>
 
-    <p>RitmeBox groeit. De huidige werkwijze via Messenger, WhatsApp en e-mail voor inschrijvingen en administratie
-        schaalt niet meer. Wij bouwen een op-maat webplatform dat drie pijlers verenigt:</p>
+<p>Beste Sofie,</p>
 
-    <ul>
-        <li><strong>Publieke website:</strong> lessenaanbod, uurrooster, locaties, online inschrijfformulieren, en een
-            nieuws-/fotopagina.</li>
-        <li><strong>Automatisering:</strong> bevestigingsmails, automatische herinneringen (e-mail of SMS), en online
-            betaling via Bancontact/Payconiq.</li>
-        <li><strong>Admin-dashboard:</strong> overzicht van inschrijvingen, betalingsstatus, capaciteit per les, en
-            eenvoudig contentbeheer — volledig zonder technische voorkennis.</li>
-    </ul>
+<p>Je runt een bloeiende dansschool. Maar de administratie — inschrijvingen via Messenger, WhatsApp, e-mail en telefoon — is een tweede job geworden. Dat snappen we. Daarom stellen we een <strong>alles-in-één platform</strong> voor dat je werk drastisch vereenvoudigt.</p>
 
-    <p>Het resultaat is een professioneel, mobiel-vriendelijk platform gericht op jouw doelpubliek (vrouwen 30–55), met
-        een backend die jou als ondernemer uren werk per week bespaart.</p>
+<p>Het platform bestaat uit drie delen die naadloos samenwerken:</p>
 
-    <!-- ═══════════ 2. TECHNISCHE ANALYSE ═══════════ -->
-    <h2>2. Technische analyse &amp; verantwoording</h2>
+<table class="two-col">
+  <tr>
+    <td>
+      <strong>Je nieuwe website</strong><br>
+      <span class="text-sm">Lessenaanbod, uurrooster, locaties, inschrijfformulieren, nieuws- en fotopagina. Mooi, snel, en perfect leesbaar op smartphone.</span>
+    </td>
+    <td>
+      <strong>Automatisering</strong><br>
+      <span class="text-sm">Automatische bevestigingsmails, herinneringen per e-mail of SMS, en online betaling via Bancontact of Payconiq. Geen handwerk meer.</span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-top:12px;">
+      <strong>Jouw admin-dashboard</strong><br>
+      <span class="text-sm">Eén overzichtelijk scherm waar je ziet: wie is ingeschreven, wie heeft betaald, hoeveel plaatsen zijn er nog? Je kunt zelf lesfoto's en nieuws posten — zonder technische kennis.</span>
+    </td>
+  </tr>
+</table>
 
-    <table class="tech-grid">
-        <tr>
-            <td class="tech-label">Frontend (publiek)</td>
-            <td class="tech-value">Vue.js 3 + Tailwind CSS</td>
-            <td class="tech-why">Snelle, responsieve interacties (filteren, dynamische kalender) zonder
-                pagina-herladers. Premium, consistent design.</td>
-        </tr>
-        <tr>
-            <td class="tech-label">Admin / Dashboard</td>
-            <td class="tech-value">Laravel + FilamentPHP</td>
-            <td class="tech-why">Filament biedt een intuïtief adminpaneel uit de doos — ideaal voor een niet-technische
-                gebruiker.</td>
-        </tr>
-        <tr>
-            <td class="tech-label">Backend / API</td>
-            <td class="tech-value">Laravel (PHP)</td>
-            <td class="tech-why">Robuust ecosysteem, ingebouwde authenticatie, queue-systeem voor mails/SMS, en
-                uitstekende ORM.</td>
-        </tr>
-        <tr>
-            <td class="tech-label">Database</td>
-            <td class="tech-value">MySQL (relationeel)</td>
-            <td class="tech-why">Structuur rond Users, Lessons, Bookings, Payments, Schedules, Locations, Posts/Media.
-            </td>
-        </tr>
-        <tr>
-            <td class="tech-label">Betalingen</td>
-            <td class="tech-value">Mollie</td>
-            <td class="tech-why">Standaard in België voor Bancontact, Payconiq en overschrijving.</td>
-        </tr>
-        <tr>
-            <td class="tech-label">Mail / SMS</td>
-            <td class="tech-value">Mailgun/Postmark + Twilio</td>
-            <td class="tech-why">Betrouwbare levering van mails en SMS-herinneringen via Laravel Queues.</td>
-        </tr>
-        <tr>
-            <td class="tech-label">Hosting</td>
-            <td class="tech-value">Managed VPS (Laravel Forge)</td>
-            <td class="tech-why">SSL-certificaat, dagelijkse backups, staging-omgeving en monitoring.</td>
-        </tr>
-    </table>
+<div class="info-box">
+  <strong>Het resultaat:</strong> een professionele uitstraling die past bij jouw doelpubliek (vrouwen 30–55), én een systeem dat jou wekelijks uren administratie bespaart.
+</div>
 
-    <!-- ═══════════ 3. DESIGNVOORSTEL ═══════════ -->
-    <h2>3. Designvoorstel (high level)</h2>
+<!-- ═══════════════════════ PAGE 2 CONTINUED: TECH ═══════════════════════ -->
+<h2>2. Hoe we het technisch aanpakken</h2>
 
-    <p><strong>Stijl:</strong> clean, ademend, professioneel. Witruimte met een zacht accentkleurenpalet dat aansluit
-        bij dans en wellness. Grote hero-fotografie. Volledig mobiel-eerst geoptimaliseerd.</p>
+<p>We bouwen op bewezen, stabiele technologie. Geen experimenten. Dit is de stack waar we dagelijks mee werken:</p>
 
-    <h3>Structuur (publiek)</h3>
-    <ul>
-        <li><strong>Home</strong> — hero, 3-lessen highlight, call-to-action.</li>
-        <li><strong>Lessen</strong> — filterbaar rooster per dag/week, detailpagina per les met prijs, locatie, vrije
-            plaatsen.</li>
-        <li><strong>Inschrijven</strong> — stapsgewijs formulier per lespakket met real-time beschikbaarheid.</li>
-        <li><strong>Nieuws &amp; Foto's</strong> — Sofie plaatst zelf albums en berichten via het adminpaneel.</li>
-        <li><strong>Contact / Over ons.</strong></li>
-        <li><strong>Deelnemersportaal</strong> — eigen inschrijvingen en betalingen bekijken.</li>
-    </ul>
+<table>
+  <thead><tr><th>Laag</th><th>Onze keuze</th><th>Waarom</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Website</strong> (wat je klanten zien)</td><td>Vue.js + Tailwind CSS</td><td>Snel, vloeiend, geen pagina-herladers. Mooi op elk scherm.</td></tr>
+    <tr><td><strong>Admin-paneel</strong> (waar jij in werkt)</td><td>Laravel + Filament</td><td>Zo eenvoudig als Gmail. Jij kunt zelf content beheren.</td></tr>
+    <tr><td><strong>Backend</strong> (het kloppend hart)</td><td>Laravel (PHP)</td><td>Betrouwbaar, veilig, miljoenen sites draaien erop.</td></tr>
+    <tr><td><strong>Database</strong> (waar data leeft)</td><td>MySQL</td><td>Gestructureerde opslag van lessen, boekingen, betalingen.</td></tr>
+    <tr><td><strong>Betalingen</strong></td><td>Mollie</td><td>Dé Belgische standaard voor Bancontact &amp; Payconiq.</td></tr>
+    <tr><td><strong>E-mails &amp; SMS</strong></td><td>Mailgun + Twilio</td><td>Betrouwbare bezorging, geen spamfolder.</td></tr>
+    <tr><td><strong>Hosting</strong></td><td>Combell</td><td>Belgische hosting, SSL-beveiliging, dagelijkse backups, 24/7 support.</td></tr>
+  </tbody>
+</table>
 
-    <h3>Admin (Filament)</h3>
-    <ul>
-        <li>Overzichtstabellen met zoeken en filteren.</li>
-        <li>Grafieken: inschrijvingen per maand, omzet, bezettingsgraad.</li>
-        <li>"Les afgelasten"-knop met automatische mailflow naar ingeschrevenen.</li>
-        <li>Media-bibliotheek voor foto-upload (drag &amp; drop).</li>
-    </ul>
+<div class="info-box">
+  <strong>Voor jou als niet-technische gebruiker:</strong> het admin-paneel is ontworpen zoals de apps die je dagelijks gebruikt. Geen code, geen commando's. Klikken, typen, slepen — klaar.
+</div>
 
-    <!-- ═══════════ 4. FASERING & PLANNING ═══════════ -->
-    <h2>4. Fasering &amp; planning (10 weken)</h2>
+<!-- ═══════════════════════ PAGE 3: DESIGN ═══════════════════════ -->
+<div class="page-break"></div>
+<h2>3. Hoe het eruit gaat zien</h2>
 
-    <table class="phase-table">
-        <thead>
-            <tr>
-                <th>Fase</th>
-                <th>Week</th>
-                <th>Activiteit</th>
-                <th>Deliverable</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="phase-name">Analyse &amp; Design</td>
-                <td class="phase-week">1–2</td>
-                <td class="phase-activity">Kick-off, functionele analyse, databasediagram, wireframes, clickdummy.</td>
-                <td class="phase-deliverable">Goedgekeurde designs + databasediagram.</td>
-            </tr>
-            <tr>
-                <td class="phase-name">Sprint 1: Kern</td>
-                <td class="phase-week">3–6</td>
-                <td class="phase-activity">Projectsetup, authenticatie, CRUD lessen/locaties/rooster, publieke site,
-                    basis inschrijving, bevestigingsmail.</td>
-                <td class="phase-deliverable">Werkende staging met kernfunctionaliteit.</td>
-            </tr>
-            <tr>
-                <td class="phase-name">Sprint 2: Integratie</td>
-                <td class="phase-week">7–8</td>
-                <td class="phase-activity">Mollie-betaling, automatische herinneringen (mail/SMS), dashboard,
-                    fotomodule, deployment productie.</td>
-                <td class="phase-deliverable">Volledig platform op productie (soft-launch).</td>
-            </tr>
-            <tr>
-                <td class="phase-name">Testen &amp; Go-Live</td>
-                <td class="phase-week">9–10</td>
-                <td class="phase-activity">End-to-end testen, acceptatie met Sofie, feedbackronde, training,
-                    handleiding, go-live.</td>
-                <td class="phase-deliverable">Opgeleverd project + documentatie.</td>
-            </tr>
-        </tbody>
-    </table>
+<p><strong>Stijl:</strong> licht, luchtig, professioneel. Veel witruimte met zachte kleuraccenten die passen bij dans en wellness. Grote sfeerfoto's. Alles werkt perfect op smartphone — daar kijkt je doelpubliek het meest.</p>
 
-    <!-- ═══════════ 5. PRIJSBEREKENING ═══════════ -->
-    <div class="page-break"></div>
-    <h2>5. Gedetailleerde prijsberekening</h2>
+<h3>De publieke website krijgt deze pagina's:</h3>
+<table>
+  <thead><tr><th>Pagina</th><th>Wat je klant er kan doen</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Home</strong></td><td>In één oogopslag zien wat RitmeBox biedt, met een duidelijke "Schrijf je in"-knop.</td></tr>
+    <tr><td><strong>Lessen</strong></td><td>Rooster filteren per dag of week. Per les: prijs, locatie, hoeveel plaatsen nog vrij.</td></tr>
+    <tr><td><strong>Inschrijven</strong></td><td>Stap voor stap inschrijven — les kiezen, gegevens invullen, betalen. Alles in één flow.</td></tr>
+    <tr><td><strong>Nieuws &amp; Foto's</strong></td><td>Jij plaatst zelf albums en berichten via het admin-paneel. Drag &amp; drop.</td></tr>
+    <tr><td><strong>Deelnemersportaal</strong></td><td>Je klanten bekijken hier hun eigen inschrijvingen en betalingen.</td></tr>
+    <tr><td><strong>Contact</strong></td><td>Contactformulier + locatie-info.</td></tr>
+  </tbody>
+</table>
 
-    <h3>Uurtarief opbouw</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Component</th>
-                <th class="text-right">Bedrag</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Equivalent loon / directe loonkost</td>
-                <td class="text-right">€ 32,00/uur</td>
-            </tr>
-            <tr>
-                <td>Overhead (verzekeringen, afschrijving IT, transport, nutsvoorzieningen, services) — 35%</td>
-                <td class="text-right">+ € 11,20/uur</td>
-            </tr>
-            <tr class="table-subtotal">
-                <td>Break-even tarief</td>
-                <td class="text-right">€ 43,20/uur</td>
-            </tr>
-            <tr>
-                <td>Winstmarge &amp; buffer</td>
-                <td class="text-right">+ € 13,80/uur</td>
-            </tr>
-            <tr class="table-total">
-                <td>Hanteringstarief</td>
-                <td class="text-right">€ 57,00/uur (excl. BTW)</td>
-            </tr>
-        </tbody>
-    </table>
+<h3>Jouw admin-dashboard:</h3>
+<ul>
+  <li><strong>Inschrijvingen-overzicht</strong> — zoeken, filteren, status per deelnemer.</li>
+  <li><strong>Grafieken</strong> — inschrijvingen per maand, omzet, hoe vol je lessen zitten.</li>
+  <li><strong>"Les afgelasten"-knop</strong> — één klik, en alle ingeschreven deelnemers krijgen automatisch een mail.</li>
+  <li><strong>Foto's &amp; nieuws beheren</strong> — uploaden, album maken, publiceren. Zo simpel als Facebook.</li>
+</ul>
 
-    <h3>Werkuren per onderdeel — Holy Grail methode</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Onderdeel (Holy Grail ref)</th>
-                <th>Toepassing RitmeBox</th>
-                <th class="text-right">Uren</th>
-                <th class="text-right">Bedrag (€57/u)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Functionele analyse — Deelproblemen (8)</td>
-                <td>Requirements mapping, use-cases, datastromen</td>
-                <td class="text-right">8</td>
-                <td class="text-right">€ 456</td>
-            </tr>
-            <tr>
-                <td>Meetings / Agile Sprint Milestones (4)</td>
-                <td>Kick-off + 4 sprint reviews (2h per sessie)</td>
-                <td class="text-right">8</td>
-                <td class="text-right">€ 456</td>
-            </tr>
-            <tr>
-                <td>Design: Custom (20)</td>
-                <td>Huisstijl, UI-kit, responsive design</td>
-                <td class="text-right">20</td>
-                <td class="text-right">€ 1.140</td>
-            </tr>
-            <tr>
-                <td>Prep: Wireframe / Mockups (10)</td>
-                <td>Publieke pagina's + admin flows</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>Database design: Normalisatie / Relaties (10)</td>
-                <td>Schema: users, lessons, bookings, payments, posts</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>API exposure routes + OpenAPI (10)</td>
-                <td>Backend endpoints + documentatie</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>API interaction routes + OpenAPI (10)</td>
-                <td>Form submissions, mutations, validatie</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>API consumptie (10)</td>
-                <td>Frontend integratie met API</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>User management (18)</td>
-                <td>Registratie, login, profiel, wachtwoord reset</td>
-                <td class="text-right">18</td>
-                <td class="text-right">€ 1.026</td>
-            </tr>
-            <tr>
-                <td>User roles (10)</td>
-                <td>Admin vs. deelnemer rollen en permissies</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>CRUDs (3 per module)</td>
-                <td>Lessen, inschrijvingen, betalingen, nieuws, locaties (×5)</td>
-                <td class="text-right">15</td>
-                <td class="text-right">€ 855</td>
-            </tr>
-            <tr>
-                <td>Charts (3)</td>
-                <td>Dashboard: inschrijvingen, bezetting, omzet</td>
-                <td class="text-right">6</td>
-                <td class="text-right">€ 342</td>
-            </tr>
-            <tr>
-                <td>Mailout scenario's (2)</td>
-                <td>Bevestiging, herinnering, afgelasting (×3 scenario's)</td>
-                <td class="text-right">6</td>
-                <td class="text-right">€ 342</td>
-            </tr>
-            <tr>
-                <td>Custom feature: Betalingskoppeling (Mollie)</td>
-                <td>Bancontact / Payconiq / overschrijving</td>
-                <td class="text-right">8</td>
-                <td class="text-right">€ 456</td>
-            </tr>
-            <tr>
-                <td>Custom feature: SMS-herinneringen (Twilio)</td>
-                <td>Automatische SMS-notificaties</td>
-                <td class="text-right">4</td>
-                <td class="text-right">€ 228</td>
-            </tr>
-            <tr>
-                <td>Custom feature: Foto- &amp; nieuwsmodule</td>
-                <td>Media-upload, albums, CMS-teksteditor</td>
-                <td class="text-right">6</td>
-                <td class="text-right">€ 342</td>
-            </tr>
-            <tr>
-                <td>Deployment: Staging / Productie (10)</td>
-                <td>Server setup, CI/CD, SSL, monitoring</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>Infrastructure consultancy (4)</td>
-                <td>Hosting advies, domein, mail configuratie</td>
-                <td class="text-right">4</td>
-                <td class="text-right">€ 228</td>
-            </tr>
-            <tr>
-                <td>Documentatie (8)</td>
-                <td>Technische docs + gebruikershandleiding + training</td>
-                <td class="text-right">8</td>
-                <td class="text-right">€ 456</td>
-            </tr>
-            <tr>
-                <td>Testen &amp; kwaliteitscontrole</td>
-                <td>End-to-end testing, acceptatie, bugfixing</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr>
-                <td>Projectmanagement &amp; opvolging</td>
-                <td>Planning, communicatie, statusreporting</td>
-                <td class="text-right">10</td>
-                <td class="text-right">€ 570</td>
-            </tr>
-            <tr class="table-subtotal">
-                <td>Subtotaal werkuren</td>
-                <td></td>
-                <td class="text-right">201</td>
-                <td class="text-right">€ 11.457</td>
-            </tr>
-            <tr>
-                <td>Calamiteiten &amp; scope-afstemming (30%)</td>
-                <td>Buffer voor onvoorziene technische uitdagingen</td>
-                <td class="text-right">60</td>
-                <td class="text-right">€ 3.420</td>
-            </tr>
-            <tr class="table-total">
-                <td>Subtotaal ontwikkeling</td>
-                <td></td>
-                <td class="text-right">261</td>
-                <td class="text-right">€ 14.877</td>
-            </tr>
-        </tbody>
-    </table>
+<!-- ═══════════════════════ PAGE 3 CONTINUED: PLANNING ═══════════════════════ -->
+<h2>4. Planning: 10 weken van start tot live</h2>
 
-    <h3>Externe kosten (jaar 1)</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th class="text-right">Bedrag</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Managed VPS hosting + backups (12 maanden)</td>
-                <td class="text-right">€ 300</td>
-            </tr>
-            <tr>
-                <td>Domeinnaam registratie (jaar)</td>
-                <td class="text-right">€ 20</td>
-            </tr>
-            <tr>
-                <td>Startcredits SMS-gateway</td>
-                <td class="text-right">€ 50</td>
-            </tr>
-            <tr class="table-subtotal">
-                <td>Subtotaal externe kosten</td>
-                <td class="text-right">€ 370</td>
-            </tr>
-        </tbody>
-    </table>
+<p>We werken in vier heldere fases. Na elke fase heb jij iets concreets in handen:</p>
 
-    <div class="highlight-box">
-        Betalingstransactiekosten via Mollie zijn pay-per-use en worden doorbelast zonder opslag.
-    </div>
+<div class="phase-card">
+  <span class="phase-nr">1</span><span class="phase-title">Analyse &amp; Design</span>
+  <span class="phase-weeks">Week 1–2</span>
+  <div class="phase-body">We starten met een kick-off gesprek. We brengen al je wensen in kaart, maken een databasediagram en wireframes (schetsen van elke pagina). Jij krijgt een klikbare demo zodat je precies ziet hoe het wordt.</div>
+  <div class="phase-result">Jij keurt de designs goed → wij beginnen te bouwen.</div>
+</div>
 
-    <h3>Totaal</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Omschrijving</th>
-                <th class="text-right">Bedrag</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Ontwikkelkosten (261 uur × €57)</td>
-                <td class="text-right">€ 14.877</td>
-            </tr>
-            <tr>
-                <td>Externe kosten (hosting, domein, SMS)</td>
-                <td class="text-right">€ 370</td>
-            </tr>
-            <tr class="table-subtotal">
-                <td>Totaal projectofferte</td>
-                <td class="text-right">€ 15.247</td>
-            </tr>
-            <tr>
-                <td>BTW 21%</td>
-                <td class="text-right">€ 3.202</td>
-            </tr>
-            <tr class="table-total">
-                <td>Totaal incl. BTW</td>
-                <td class="text-right">€ 18.449</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="phase-card">
+  <span class="phase-nr">2</span><span class="phase-title">Sprint 1 — De kern</span>
+  <span class="phase-weeks">Week 3–6</span>
+  <div class="phase-body">We bouwen de basis: inlogsysteem, lessen en locaties beheren, de publieke website, het inschrijfformulier, en automatische bevestigingsmails.</div>
+  <div class="phase-result">Een werkende testversie die jij kunt bekijken en uitproberen.</div>
+</div>
 
-    <div class="highlight-box">
-        <strong>Afgerond tot:</strong> € 15.250 excl. BTW / € 18.450 incl. BTW
-    </div>
+<div class="phase-card">
+  <span class="phase-nr">3</span><span class="phase-title">Sprint 2 — Integraties</span>
+  <span class="phase-weeks">Week 7–8</span>
+  <div class="phase-body">Online betaling via Bancontact/Payconiq, automatische herinneringen per mail en SMS, het admin-dashboard met grafieken, de foto- en nieuwsmodule. We zetten alles live op de echte server.</div>
+  <div class="phase-result">Het volledige platform draait online (soft-launch).</div>
+</div>
 
-    <p><strong>Meest kostbare onderdelen:</strong></p>
-    <ol>
-        <li><strong>Custom design (20u)</strong> — professionele uitstraling is essentieel voor het doelpubliek.</li>
-        <li><strong>User management (18u)</strong> — veilige registratie en profielbeheer vragen zorgvuldige validatie
-            en security.</li>
-        <li><strong>API-lagen (30u cumulatief)</strong> — het hart van het systeem; koppelt frontend, database en
-            externe diensten.</li>
-        <li><strong>CRUD-modules (15u)</strong> — veel datapunten (lessen, boekingen, betalingen, content) die elk een
-            eigen werkflow vereisen.</li>
-    </ol>
+<div class="phase-card">
+  <span class="phase-nr">4</span><span class="phase-title">Testen &amp; Go-Live</span>
+  <span class="phase-weeks">Week 9–10</span>
+  <div class="phase-body">We testen alles van A tot Z. Jij loopt mee, geeft feedback. We trainen je in het admin-paneel en leveren een gebruikershandleiding. Dan gaat de site officieel live.</div>
+  <div class="phase-result">Opgeleverd project + handleiding + training.</div>
+</div>
 
-    <!-- ═══════════ 6. ONDERHOUD & OPTIES ═══════════ -->
-    <h2>6. Onderhoud &amp; extra opties</h2>
+<!-- ═══════════════════════ PAGE 4: PRICING ═══════════════════════ -->
+<div class="page-break"></div>
+<h2>5. Wat het kost</h2>
 
-    <table class="options-table">
-        <thead>
-            <tr>
-                <th>Optie</th>
-                <th>Omschrijving</th>
-                <th class="text-right">Prijs</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="opt-name">Supportcontract (SLA)</td>
-                <td class="opt-desc">Maandelijkse updates/security-patches, back-upmonitoring, kleine tekstuele
-                    wijzigingen (&lt;2u/maand), prio-support binnen 24u via e-mail.</td>
-                <td class="opt-price text-right">€ 250/maand (excl. BTW)</td>
-            </tr>
-            <tr>
-                <td class="opt-name">Social logins</td>
-                <td class="opt-desc">Google/Facebook inlog voor deelnemers</td>
-                <td class="opt-price text-right">+ € 228 (4u)</td>
-            </tr>
-            <tr>
-                <td class="opt-name">Boekhoud-export</td>
-                <td class="opt-desc">CSV/PDF-export van inschrijvingen en betalingen</td>
-                <td class="opt-price text-right">+ € 171 (3u)</td>
-            </tr>
-            <tr>
-                <td class="opt-name">Meertaligheid (NL/FR/EN)</td>
-                <td class="opt-desc">Volledige vertaling van de publieke site</td>
-                <td class="opt-price text-right">+ € 456 (8u)</td>
-            </tr>
-            <tr>
-                <td class="opt-name">Wachtlijst per les</td>
-                <td class="opt-desc">Automatische wachtrij als een les volzet is</td>
-                <td class="opt-price text-right">+ € 342 (6u)</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="price-hero">
+  <div class="big-number">€ 15.430</div>
+  <div class="big-label">excl. BTW (€ 18.670 incl. BTW)</div>
+</div>
 
-    <!-- ═══════════ 7. OPVOLGING & COMMUNICATIE ═══════════ -->
-    <h2>7. Opvolging &amp; communicatie</h2>
+<p>Dit is een <strong>vaste projectprijs</strong> op basis van 261 werkuren aan € 57 per uur, plus € 550 externe kosten voor hosting, domeinnaam en SMS-startcredits voor het eerste jaar.</p>
 
-    <ul>
-        <li><strong>Vast aanspreekpunt:</strong> één developer/projectmanager binnen ons team.</li>
-        <li><strong>Sprint reviews:</strong> elke twee weken een online meeting (30–45 min) om een demo te tonen en
-            prioriteiten af te stemmen.</li>
-        <li><strong>Transparantie:</strong> gedeeld Trello-/Linear-bord waar jij real-time de status en voortgang ziet.
-        </li>
-        <li><strong>Direct contact:</strong> Slack-kanaal of e-mail voor snelle vragen.</li>
-        <li><strong>Oplevering:</strong> na go-live ontvang je een gebruikershandleiding + 1 uur live walkthrough
-            doorheen het adminpaneel.</li>
-    </ul>
+<h3>Waar gaan de uren naartoe?</h3>
+<table>
+  <thead><tr><th>Onderdeel</th><th class="text-right">Uren</th><th class="text-right">Bedrag</th></tr></thead>
+  <tbody>
+    <tr><td>Functionele analyse — jouw wensen in kaart brengen</td><td class="text-right">8</td><td class="text-right">€ 456</td></tr>
+    <tr><td>Overleg &amp; sprint reviews (kick-off + 4 demo's)</td><td class="text-right">8</td><td class="text-right">€ 456</td></tr>
+    <tr><td>Design: huisstijl, UI-kit, responsive ontwerp</td><td class="text-right">20</td><td class="text-right">€ 1.140</td></tr>
+    <tr><td>Wireframes &amp; mockups van alle pagina's</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>Database-ontwerp (lessen, boekingen, betalingen, …)</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>API: backend-endpoints + documentatie</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>API: formulieren, validatie, gegevens verwerken</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>Frontend koppelen aan de backend</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>Gebruikersbeheer: registratie, login, profiel, wachtwoord reset</td><td class="text-right">18</td><td class="text-right">€ 1.026</td></tr>
+    <tr><td>Rollen &amp; permissies (admin vs. deelnemer)</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>Beheermodules: lessen, inschrijvingen, betalingen, nieuws, locaties</td><td class="text-right">15</td><td class="text-right">€ 855</td></tr>
+    <tr><td>Dashboard-grafieken (inschrijvingen, bezetting, omzet)</td><td class="text-right">6</td><td class="text-right">€ 342</td></tr>
+    <tr><td>Automatische mails: bevestiging, herinnering, afgelasting</td><td class="text-right">6</td><td class="text-right">€ 342</td></tr>
+    <tr><td>Betalingskoppeling Mollie (Bancontact/Payconiq)</td><td class="text-right">8</td><td class="text-right">€ 456</td></tr>
+    <tr><td>SMS-herinneringen via Twilio</td><td class="text-right">4</td><td class="text-right">€ 228</td></tr>
+    <tr><td>Foto- &amp; nieuwsmodule (upload, albums, teksteditor)</td><td class="text-right">6</td><td class="text-right">€ 342</td></tr>
+    <tr><td>Server setup, SSL, CI/CD, monitoring</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>Hostingadvies, domein, e-mailconfiguratie</td><td class="text-right">4</td><td class="text-right">€ 228</td></tr>
+    <tr><td>Documentatie + gebruikershandleiding</td><td class="text-right">8</td><td class="text-right">€ 456</td></tr>
+    <tr><td>Testen &amp; kwaliteitscontrole</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr><td>Projectmanagement &amp; opvolging</td><td class="text-right">10</td><td class="text-right">€ 570</td></tr>
+    <tr class="sub-row"><td><strong>Subtotaal werkuren</strong></td><td class="text-right"><strong>201</strong></td><td class="text-right"><strong>€ 11.457</strong></td></tr>
+    <tr><td>Buffer voor onvoorziene uitdagingen (30%)</td><td class="text-right">60</td><td class="text-right">€ 3.420</td></tr>
+    <tr class="total-row"><td><strong>Ontwikkelkosten</strong></td><td class="text-right"><strong>261</strong></td><td class="text-right"><strong>€ 14.877</strong></td></tr>
+  </tbody>
+</table>
 
-    <!-- ═══════════ 8. NACALCULATIE & WIJZIGINGEN ═══════════ -->
-    <h2>8. Nacalculatie &amp; wijzigingen</h2>
+<h3>Externe kosten (eerste jaar)</h3>
+<table>
+  <thead><tr><th>Item</th><th class="text-right">Bedrag</th></tr></thead>
+  <tbody>
+    <tr><td>Combell hosting + dagelijkse backups (12 maanden)</td><td class="text-right">€ 480</td></tr>
+    <tr><td>Domeinnaam (1 jaar)</td><td class="text-right">€ 20</td></tr>
+    <tr><td>Startkrediet SMS-berichten</td><td class="text-right">€ 50</td></tr>
+    <tr class="sub-row"><td><strong>Subtotaal extern</strong></td><td class="text-right"><strong>€ 550</strong></td></tr>
+  </tbody>
+</table>
 
-    <ul>
-        <li>Deze offerte is gebaseerd op de hierboven beschreven scope en onze kick-off analyse.</li>
-        <li>Wijzigingen of bijkomende wensen na goedkeuring van de analysefase worden behandeld als een <strong>Change
-                Request</strong>: wij sturen vooraf een schriftelijke inschatting van bijkomende uren en kosten. Pas na
-            jouw schriftelijke goedkeuring voeren we ze uit.</li>
-        <li>Nacalculatie gebeurt steeds op basis van daadwerkelijk bestede uren tegen hetzelfde tarief van €57/uur.</li>
-    </ul>
+<div class="info-box">
+  <strong>Transactiekosten</strong> (Mollie) zijn pay-per-use — die betalen je klanten bij het afrekenen, niet jij.
+</div>
 
-    <!-- ═══════════ SIGNATURE ═══════════ -->
-    <div class="signature">
-        <p>Met vriendelijke groeten,</p>
-        <p>
-            <strong>Sage Stockmans</strong><br>
-            Fullstack Developer<br>
-            Web-Handler<br>
-            0472 12 34 56 | sage.stockmans@pm.me
-        </p>
-    </div>
+<h3>Wat kost het per maand na oplevering?</h3>
+<p>Na de eenmalige ontwikkelkost heb je enkel deze terugkerende kosten:</p>
+<table>
+  <thead><tr><th>Item</th><th class="text-right">Per maand</th></tr></thead>
+  <tbody>
+    <tr><td>Combell hosting (incl. backups, SSL, monitoring)</td><td class="text-right">€ 40</td></tr>
+    <tr><td>Domeinnaam</td><td class="text-right">€ 1,67</td></tr>
+    <tr class="sub-row"><td><strong>Totaal per maand</strong></td><td class="text-right"><strong>€ 41,67</strong></td></tr>
+  </tbody>
+</table>
 
-    <div class="footer-note">
-        Offerte referentie RB-2026-001 — Geldig tot 30 dagen na datum — Alle prijzen excl. BTW tenzij anders vermeld.
-    </div>
+<div class="info-box">
+  <strong>SMS-berichten</strong> zijn pay-per-use — je laadt krediet op wanneer het op is. Met het startkrediet van € 50 kom je een heel eind.
+</div>
+
+<h3>Totaaloverzicht</h3>
+<table>
+  <tbody>
+    <tr><td>Ontwikkeling (261 uur)</td><td class="text-right">€ 14.877</td></tr>
+    <tr><td>Hosting, domein &amp; SMS (jaar 1)</td><td class="text-right">€ 550</td></tr>
+    <tr class="sub-row"><td><strong>Totaal excl. BTW</strong></td><td class="text-right"><strong>€ 15.427</strong></td></tr>
+    <tr><td>BTW 21%</td><td class="text-right">€ 3.240</td></tr>
+    <tr class="total-row"><td><strong>Totaal incl. BTW</strong></td><td class="text-right"><strong>€ 18.667</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="warm-box">
+  <strong>Afgeronde vaste prijs:</strong> € 15.430 excl. BTW / € 18.670 incl. BTW. Geen verrassingen achteraf.
+</div>
+
+<!-- ═══════════════════════ PAGE 5: OPTIONS ═══════════════════════ -->
+<div class="page-break"></div>
+<h2>6. Extra opties</h2>
+
+<p>Deze zitten niet in de basisofferte, maar kunnen we toevoegen als je ze nuttig vindt:</p>
+
+<table>
+  <thead><tr><th>Optie</th><th>Wat het doet</th><th class="text-right">Meerprijs</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Supportcontract (SLA)</strong></td><td>Maandelijkse updates, security-patches, back-upcontrole, kleine aanpassingen (&lt;2u/maand), prioritaire support binnen 24u.</td><td class="text-right">€ 250/maand</td></tr>
+    <tr><td><strong>Inloggen met Google/Facebook</strong></td><td>Deelnemers kunnen inloggen zonder nieuw wachtwoord.</td><td class="text-right">+ € 228</td></tr>
+    <tr><td><strong>Boekhoud-export</strong></td><td>Inschrijvingen &amp; betalingen exporteren als CSV of PDF.</td><td class="text-right">+ € 171</td></tr>
+    <tr><td><strong>Meertalig (NL/FR/EN)</strong></td><td>De volledige website in drie talen.</td><td class="text-right">+ € 456</td></tr>
+    <tr><td><strong>Wachtlijst per les</strong></td><td>Automatische wachtrij als een les volzet is.</td><td class="text-right">+ € 342</td></tr>
+  </tbody>
+</table>
+
+<p class="text-sm">Alle optieprijzen excl. BTW.</p>
+
+<!-- ═══════════════════════ PAGE 5 CONTINUED: COMMUNICATION ═══════════════════════ -->
+<h2>7. Hoe we samenwerken</h2>
+
+<ul>
+  <li><strong>Eén vast aanspreekpunt</strong> — je hebt één developer/projectmanager die jouw project kent van A tot Z.</li>
+  <li><strong>Tweewekelijkse demo</strong> — elke twee weken een online meeting (30–45 min) waarin we tonen wat we gebouwd hebben. Jij stuurt bij waar nodig.</li>
+  <li><strong>Volledige transparantie</strong> — je krijgt toegang tot ons projectbord (Trello/Linear). Je ziet real-time wat af is, wat in progress is, en wat er nog aankomt.</li>
+  <li><strong>Snel contact</strong> — Slack-kanaal of e-mail voor tussentijdse vragen. Geen dagen wachten op antwoord.</li>
+  <li><strong>Oplevering met training</strong> — bij go-live krijg je een gebruikershandleiding + 1 uur live walkthrough door het admin-paneel.</li>
+</ul>
+
+<h2>8. Wat als er iets wijzigt?</h2>
+
+<p>Deze offerte is gebaseerd op wat we samen in de kick-off bespreken. Mocht je tijdens het project extra wensen hebben:</p>
+
+<ul>
+  <li>We sturen je <strong>vooraf een schriftelijke inschatting</strong> van de extra uren en kosten.</li>
+  <li>Pas <strong>na jouw schriftelijke goedkeuring</strong> voeren we de wijziging uit.</li>
+  <li>Nacalculatie gebeurt tegen <strong>hetzelfde uurtarief van € 57</strong> — geen verborgen opslagen.</li>
+</ul>
+
+<div class="info-box">
+  <strong>Ons uitgangspunt:</strong> geen verrassingen. Jij weet altijd waar je aan toe bent.
+</div>
+
+<!-- ═══════════════════════ SIGNATURE ═══════════════════════ -->
+<div class="signature">
+  <p>Met vriendelijke groeten,</p>
+  <p>
+    <span class="name">Sage Stockmans</span><br>
+    Fullstack Developer<br>
+    Web-Handler<br>
+    0472 12 34 56 · sage.stockmans@pm.me
+  </p>
+</div>
+
+<div class="text-sm" style="margin-top: 20px; padding-top: 12px; border-top: 1px solid #e0d5c7;">
+  Offerte RB-2026-001 — Geldig tot 30 dagen na datum — Alle prijzen excl. BTW tenzij anders vermeld.
+</div>
 
 </body>
-
 </html>
