@@ -1,6 +1,6 @@
 # Offerte Generator
 
-Generate a polished, print-ready PDF offerte (business proposal) from an HTML template using [Dompdf](https://github.com/dompdf/dompdf).
+Generate a polished, print-ready PDF offerte (business proposal) from an HTML template using [Dompdf](https://github.com/dompdf/dompdf). As well as using the Holy Grail to calculate costs for a project.
 
 ## What it does
 
